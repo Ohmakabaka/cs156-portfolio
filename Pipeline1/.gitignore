@@ -10,7 +10,15 @@
 *.textClipping
 
 # Generated caches, model weights, and local environments
-.cache/
+/.cache/*
+!/.cache/decision_tree/
+!/.cache/dinov2/
+/.cache/decision_tree/*
+!/.cache/decision_tree/augmented_features.csv
+!/.cache/decision_tree/augmented_features_manifest.json
+/.cache/dinov2/*
+!/.cache/dinov2/model_download.json
+!/.cache/dinov2/embeddings/
 cache/
 *.pt
 *.pth
@@ -19,6 +27,7 @@ cache/
 *.pkl
 *.npy
 *.npz
+!/.cache/dinov2/embeddings/**/*.npz
 .venv/
 __pycache__/
 .ipynb_checkpoints/

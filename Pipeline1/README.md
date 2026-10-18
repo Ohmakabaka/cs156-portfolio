@@ -87,7 +87,20 @@ The main notebook includes saved execution outputs, evaluation tables, and plots
 2. Place the prepared images in the `dataset/` structure above. Open the project folder in VS Code or Jupyter and run `notebooks/CS156_Pipeline_Assignment_1.ipynb` from the top. The notebook expects `src/image_features.py` and `src/dinov2_features.py` to be present.
 3. The DINOv2 extractor uses a pretrained model and caches embeddings locally under `.cache/`. Initial setup may require downloading model files; later runs can reuse cached features. On an Apple Silicon Mac, PyTorch can use the MPS backend when available.
 
-**Data availability:** These are private personal photographs. Neither `data/` nor `dataset/` is published. Photo previews, filename-mapping metadata, model weights, and feature caches are also excluded. The code and saved notebook outputs can be reviewed on GitHub, but rerunning the full experiment requires authorized access to the prepared images. Set `CS156_DATASET_DIR` to an alternative local dataset directory if needed. The historical preprocessing notebook writes output directories, so its paths and destinations must be reviewed before rerunning it.
+**Data availability:** These are private personal photographs. Neither `data/` nor `dataset/` is published. Photo previews, original-to-renamed filename mappings, and model weights are also excluded. Derived feature caches are included as described below. The code and saved notebook outputs can be reviewed on GitHub, but rerunning the full experiment requires authorized access to the prepared images. Set `CS156_DATASET_DIR` to an alternative local dataset directory if needed. The historical preprocessing notebook writes output directories, so its paths and destinations must be reviewed before rerunning it.
+
+### Included feature caches
+
+The repository includes the existing numerical feature caches under [`.cache/`](.cache/):
+
+- `decision_tree/augmented_features.csv`: handcrafted features for the 850 augmented training rows.
+- `decision_tree/augmented_features_manifest.json`: the original cache provenance record, including relative image names, file sizes, modification times, and feature-source hashes.
+- `dinov2/embeddings/<signature>/`: 384-dimensional embeddings for 85 original training images, 850 augmented training images, and 22 test images; a two-image smoke-check cache; and the shared content-addressed cache of 872 unique image hashes. Split caches include standardized filenames, class labels, source identifiers, and preprocessing configuration.
+- `dinov2/model_download.json`: the pretrained model source, pinned revision, download URL, and checksum.
+
+These files contain derived numerical features and metadata, not photograph pixels. Load an embedding archive with `numpy.load(path, allow_pickle=False)`; the `features` and `labels` arrays in a split archive can be used for classifier experiments without the photos. The main notebook still requires local images for dataset discovery, hashing, and handcrafted feature extraction. Automatic DINOv2 cache reuse also depends on matching the recorded model, preprocessing, source code, library versions, and device signature.
+
+Downloaded third-party code and model weights (`.cache/dinov2/torch_hub/`), Matplotlib font caches, and temporary preservation records are not tracked. The extractor downloads the pinned DINOv2 model when needed.
 
 ## References
 
