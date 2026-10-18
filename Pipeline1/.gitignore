@@ -1,0 +1,30 @@
+# Private photos and local data provenance
+/dataset/
+/data/
+/data/raw_photos/
+/data/jpeg_photos/
+/data/labeled_photos/
+/notebooks/archive/
+*.ARW
+*.arw
+*.textClipping
+
+# Generated caches, model weights, and local environments
+.cache/
+cache/
+*.pt
+*.pth
+*.safetensors
+*.joblib
+*.pkl
+*.npy
+*.npz
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+
+# Error-analysis figures may contain personal photos
+/results/error_analysis/
+/results/feature_preview/
+/results/figures/dinov2_false_positive.png
